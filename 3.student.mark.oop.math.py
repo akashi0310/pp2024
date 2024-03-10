@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 student_number = int(input("Enter the number of students in class : "))
 class Student:
@@ -30,11 +31,23 @@ for i in range(course_number):
 
     courseList.append(Course(cID,cname))
 
+markList = []
+creditList = []
 for i in courseList:
+    credits = int(input(f"Enter the number of credits for course {i.cname}: "))
+
     for j in studentList:
+        creditList.append(credits)
+        cre = np.array(creditList)
+    
         mark = float(input(f"mark for student {j.name} in course {i.cname} is: "))
-        rounded = math.floor(mark*10)/10
-        i.mark[j.id] = rounded
+        result = math.floor(mark*10)/10
+        i.mark[j.id] = result
+        markList.append(i.mark[j.id])
+        point = np.array(markList)
+
+        j.gpa = (np.dot(cre,point))/np.sum(cre)
+
 
 def Print():
     for i in studentList:
@@ -42,6 +55,7 @@ def Print():
         for j in courseList:
             print(j.cname)
             print(f"mark for student {i.name} in course {j.cname} is {j.mark[i.id]} ")
+        print(f"gpa of student {i.name} is {i.gpa} ")        
 
 print("------------------------------")
 Print()
