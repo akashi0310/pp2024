@@ -1,7 +1,5 @@
 import math
 import numpy as np
-def numberStudent():
-    return 
 
 class Student:
     def __init__(self,name,id,DoB):
