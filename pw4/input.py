@@ -1,7 +1,7 @@
-from domains import Course
-from domains import Student
-from domains import Grade
+from domains.Student import Student 
+from domains.Course import Course
 
+import math
 studentList = []
 numbstu = int(input("Enter the number of student: "))
 def studentInput():
@@ -23,21 +23,23 @@ def courseInput():
         credit = int(input("Enter the number of credit: "))
         course = Course(coursename,courseId)
         courseList.append(course)
-        for i in range(numbstu):
-            creditList.append(credit)
+        creditList.append(credit)
     return courseList
 
 markList = []
 def gradeInput():
     for i in studentList:
         for j in courseList:
-            cre = np.array(creditList)
-            
             mark = float(input(f"Enter the grade for {i.getName()} in course {j.getCname()}: "))
             result = math.floor(mark*10)/10
-            markList.append(result)
-            point = np.array(markList)
-            
-        gpa = (np.dot(cre,point))/np.sum(cre)
-        i.setGpa(gpa)
-    return markList
+            markList.append(result)     
+    i=0
+    for student in studentList:
+        sum_credit = 0
+        sum_product = 0
+        for credit in creditList:  
+            sum_credit += credit
+            sum_product += markList[i]*credit
+            i+=1
+        gpa = sum_product/sum_credit
+        student.setGpa(gpa)
